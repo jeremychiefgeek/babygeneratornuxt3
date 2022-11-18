@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {Gender, Popularity, Length} from "@/data"
+import {Gender, Popularity, Length, names} from "@/data"
 
 
 interface OptionState {
@@ -16,7 +16,19 @@ interface OptionState {
 
 const selectedNames = ref<string[]>([])
 
+const computeSelectedNames = () => {
+  const filterNames = names.filter((name) => name.gender === options.gender)
+    .filter((name) => name.popularity === options.popularity)
+    .filter((name) => {
+      if(Length.ALL === options.length) {
+        return true
+      } else {
+        return name.length === options.length
+      }
+    })
 
+    selectedNames.value = filterNames
+}
 </script>
 
 <template>
@@ -56,8 +68,9 @@ const selectedNames = ref<string[]>([])
           <button class="option option-right" :class="options.length === Length.SHORT && 'option-active'" @click="options.length = Length.SHORT">Short</button>
         </div>
       </div>
-      <button class="primary-button">Find Names</button>
+      <button class="primary-button" @click="computeSelectedNames">Find Names</button>
     </div>
+    {{ selectedNames }}
   </div>
 </template>
 
