@@ -1,21 +1,6 @@
 <script setup lang="ts">
+import {Gender, Popularity, Length} from "@/data"
 
-enum Gender {
-  GIRL = 'Girl',
-  BOY = 'Boy',
-  UNISEX = 'Unisex'
-}
-
-enum Popularity {
-  UNIQUE = 'Unique',
-  TRENDY = 'Trendy'
-}
-
-enum Length {
-  ALL = 'All',
-  SHORT = 'Short',
-  LONG = 'Long'
-}
 
 interface OptionState {
   gender: Gender;
@@ -28,6 +13,9 @@ interface OptionState {
   popularity: Popularity.TRENDY,
   length: Length.SHORT
  })
+
+const selectedNames = ref<string[]>([])
+
 
 </script>
 
@@ -68,6 +56,7 @@ interface OptionState {
           <button class="option option-right" :class="options.length === Length.SHORT && 'option-active'" @click="options.length = Length.SHORT">Short</button>
         </div>
       </div>
+      <button class="primary-button">Find Names</button>
     </div>
   </div>
 </template>
@@ -116,5 +105,16 @@ interface OptionState {
 .option-active {
   background-color: rgb(249, 87, 89);
   color:white;
+}
+
+.primary-button {
+  background-color: rgb(249,87,89);
+  color:white;
+  border-radius: 6.5rem;
+  border: none;
+  padding: 0.75rem 4rem;
+  font-size: 1rem;
+  margin-top:1rem;
+  cursor: pointer;
 }
 </style>
